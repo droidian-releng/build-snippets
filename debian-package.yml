@@ -56,7 +56,8 @@ _debian_package_build_template: &debian_package_build_template
        -v /tmp/buildd-results:/buildd \
        -v ${PWD}:/buildd/sources \
        ${DOCKER_IMAGE} \
-       /bin/sh -c "cd /buildd/sources ; apt install -y python3-git ; ./build_package.sh"
+       /bin/sh -c "cd /buildd/sources ; releng-build-package"
+
   after_success:
     - echo "Signing..."
     - |
