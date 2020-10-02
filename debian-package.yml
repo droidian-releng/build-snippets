@@ -142,6 +142,6 @@ jobs:
     group: edge # required to route the job to arm64-graviton2
     env:
       - DOCKER_IMAGE="hybrismobian/build-essential:bullseye"
-      - RELENG_FULL_BUILD="yes"
+      - RELENG_FULL_BUILD="no"
     <<: *bullseye_arm64_dep_env_filter
     <<: *debian_package_build_template
