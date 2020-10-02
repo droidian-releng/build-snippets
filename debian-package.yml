@@ -96,6 +96,12 @@ _bullseye_arm64_full_env_filter: &bullseye_arm64_full_env_filter
 
 _bullseye_arm64_dep_env_filter: &bullseye_arm64_dep_env_filter
   if: env(BUILD_ON) =~ / arm64/ AND (branch =~ /^(feature\/)?bullseye(\/)?.*$/ OR (tag =~ /^hybris-mobian\/bullseye\/.*$/))
+
+_bullseye_armhf_full_env_filter: &bullseye_armhf_full_env_filter
+  if: env(BUILD_ON) =~ /^armhf ?/ AND (branch =~ /^(feature\/)?bullseye(\/)?.*$/ OR (tag =~ /^hybris-mobian\/bullseye\/.*$/))
+
+_bullseye_armhf_dep_env_filter: &bullseye_armhf_dep_env_filter
+  if: env(BUILD_ON) =~ / armhf/ AND (branch =~ /^(feature\/)?bullseye(\/)?.*$/ OR (tag =~ /^hybris-mobian\/bullseye\/.*$/)
   
 ########################################################################
 
@@ -142,6 +148,30 @@ jobs:
     group: edge # required to route the job to arm64-graviton2
     env:
       - DOCKER_IMAGE="hybrismobian/build-essential:bullseye"
+      - RELENG_FULL_BUILD="no"
+    <<: *bullseye_arm64_dep_env_filter
+    <<: *debian_package_build_template
+
+  # Debian bullseye ARMHF (armv7hf)
+  # - route for full builds (arch-dep, arch-indep and source)
+  - name: bullseye-armhf-full
+    arch: arm64-graviton2
+    virt: vm # required to route the job to arm64-graviton2
+    group: edge # required to route the job to arm64-graviton2
+    env:
+      - DOCKER_IMAGE="hybrismobian/build-essential:bullseye-armhf"
+      - RELENG_FULL_BUILD="yes"
+    <<: *bullseye_arm64_full_env_filter
+    <<: *debian_package_build_template
+
+  # Debian bullseye ARMHF (armv7hf)
+  # - route for only arch-dep builds
+  - name: bullseye-armhf-dep
+    arch: arm64-graviton2
+    virt: vm # required to route the job to arm64-graviton2
+    group: edge # required to route the job to arm64-graviton2
+    env:
+      - DOCKER_IMAGE="hybrismobian/build-essential:bullseye-armhf"
       - RELENG_FULL_BUILD="no"
     <<: *bullseye_arm64_dep_env_filter
     <<: *debian_package_build_template
