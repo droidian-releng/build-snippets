@@ -1,7 +1,3 @@
-env:
-  global:
-    BUILD_ON="amd64 arm64"
-
 os: linux
 dist: focal
 
@@ -50,13 +46,13 @@ _rootfs_tarball_build_template: &rootfs_tarball_build_template
       condition: -n $RELEASES_TOKEN
 
 _bullseye_amd64_full_env_filter: &bullseye_amd64_full_env_filter
-  if: env(BUILD_ON) =~ /^amd64 ?/ AND (branch =~ /^(feature\/)?bullseye(\/)?.*$/ OR (tag =~ /^hybris-mobian\/bullseye\/.*$/))
+  if: env(BUILD_ON) =~ / ?amd64 ?/ AND (branch =~ /^(feature\/)?bullseye(\/)?.*$/ OR (tag =~ /^hybris-mobian\/bullseye\/.*$/))
 
 _bullseye_arm64_full_env_filter: &bullseye_arm64_full_env_filter
-  if: env(BUILD_ON) =~ /^arm64 ?/ AND (branch =~ /^(feature\/)?bullseye(\/)?.*$/ OR (tag =~ /^hybris-mobian\/bullseye\/.*$/))
+  if: env(BUILD_ON) =~ / ?arm64 ?/ AND (branch =~ /^(feature\/)?bullseye(\/)?.*$/ OR (tag =~ /^hybris-mobian\/bullseye\/.*$/))
 
 _bullseye_armhf_full_env_filter: &bullseye_armhf_full_env_filter
-  if: env(BUILD_ON) =~ /^armhf ?/ AND (branch =~ /^(feature\/)?bullseye(\/)?.*$/ OR (tag =~ /^hybris-mobian\/bullseye\/.*$/))
+  if: env(BUILD_ON) =~ / ?armhf ?/ AND (branch =~ /^(feature\/)?bullseye(\/)?.*$/ OR (tag =~ /^hybris-mobian\/bullseye\/.*$/))
 
 
 ########################################################################
