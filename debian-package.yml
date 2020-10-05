@@ -120,7 +120,7 @@ _bullseye_armhf_full_env_filter: &bullseye_armhf_full_env_filter
   if: env(BUILD_ON) =~ /^armhf ?/ AND (branch =~ /^(feature\/)?bullseye(\/)?.*$/ OR (tag =~ /^hybris-mobian\/bullseye\/.*$/))
 
 _bullseye_armhf_dep_env_filter: &bullseye_armhf_dep_env_filter
-  if: env(BUILD_ON) =~ / armhf/ AND (branch =~ /^(feature\/)?bullseye(\/)?.*$/ OR (tag =~ /^hybris-mobian\/bullseye\/.*$/)
+  if: env(BUILD_ON) =~ / armhf/ AND (branch =~ /^(feature\/)?bullseye(\/)?.*$/ OR (tag =~ /^hybris-mobian\/bullseye\/.*$/))
   
 ########################################################################
 
@@ -180,7 +180,7 @@ jobs:
     env:
       - DOCKER_IMAGE="hybrismobian/build-essential:bullseye-armhf"
       - RELENG_FULL_BUILD="yes"
-    <<: *bullseye_arm64_full_env_filter
+    <<: *bullseye_armhf_full_env_filter
     <<: *debian_package_build_template
 
   # Debian bullseye ARMHF (armv7hf)
@@ -192,5 +192,5 @@ jobs:
     env:
       - DOCKER_IMAGE="hybrismobian/build-essential:bullseye-armhf"
       - RELENG_FULL_BUILD="no"
-    <<: *bullseye_arm64_dep_env_filter
+    <<: *bullseye_armhf_dep_env_filter
     <<: *debian_package_build_template
