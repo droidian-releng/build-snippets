@@ -29,20 +29,22 @@ _rootfs_tarball_build_template: &rootfs_tarball_build_template
        -e TRAVIS_BRANCH \
        -e TRAVIS_EVENT_TYPE \
        -v /tmp/buildd-results:/buildd \
+       -v /dev:/dev \
        -v /sys/fs/cgroup:/sys/fs/cgroup \
        -v ${PWD}:/buildd/sources \
+       --security-opt seccomp:unconfined \
        ${DOCKER_IMAGE} \
-       /sbin/init) && docker exec $CONTAINER_HASH /bin/sh -c 'cd /buildd/sources; debos --disable-fakemachine -t architecture:$(dpkg-architecture --query DEB_HOST_ARCH_CPU) device.yml'
-
+       /sbin/init) && docker exec $CONTAINER_HASH /bin/sh -c 'cd /buildd/sources; \
+              debos --disable-fakemachine -t architecture:$(dpkg-architecture --query DEB_BUILD_ARCH) device.yml;'
 
   deploy:
     provider: releases
     edge: true # use dpl v2
     draft: false
     file:
-      - /tmp/buildd-results/*.tar.*
-      - /tmp/buildd-results/*.img.*
-      - /tmp/buildd-results/*.img
+      - ./*.tar.*
+      - ./*.img.*
+      - ./*.img
     on:
       tags: true
       condition: -n $RELEASES_TOKEN
