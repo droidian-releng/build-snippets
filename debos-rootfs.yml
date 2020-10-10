@@ -32,7 +32,7 @@ _rootfs_tarball_build_template: &rootfs_tarball_build_template
        -v /sys/fs/cgroup:/sys/fs/cgroup \
        -v ${PWD}:/buildd/sources \
        ${DOCKER_IMAGE} \
-       /sbin/init) && docker exec $CONTAINER_HASH /bin/sh -c 'cd /buildd/sources; debos -t architecture:$(dpkg-architecture --query DEB_HOST_ARCH_CPU) device.yml'
+       /sbin/init) && docker exec $CONTAINER_HASH /bin/sh -c 'cd /buildd/sources; debos --disable-fakemachine -t architecture:$(dpkg-architecture --query DEB_HOST_ARCH_CPU) device.yml'
 
 
   deploy:
