@@ -53,6 +53,7 @@ _debian_package_build_template: &debian_package_build_template
        -e TRAVIS_TAG \
        -e TRAVIS_BRANCH \
        -e TRAVIS_EVENT_TYPE \
+       -e EXTRA_REPOS \
        -v /tmp/buildd-results:/buildd \
        -v ${PWD}:/buildd/sources \
        --security-opt seccomp:unconfined \
