@@ -139,6 +139,7 @@ def debian_package_build(suite, architecture, full_build=True, extra_repos=[], h
 		"steps" : [
 			{
 				"name" : "build",
+				"pull" : "always",
 				"image" : "quay.io/%s:%s-%s" % (DOCKER_IMAGE, suite, architecture),
 				"volumes" : [
 					{
@@ -158,6 +159,7 @@ def debian_package_build(suite, architecture, full_build=True, extra_repos=[], h
 			},
 			{
 				"name" : "deploy",
+				"pull" : "always",
 				"image" : "quay.io/%s:%s-%s" % (DOCKER_IMAGE, suite, architecture),
 				"volumes" : [
 					{
